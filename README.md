@@ -1,5 +1,11 @@
 [![travis ci](https://travis-ci.org/heroku/heroku-buildpack-go.svg?branch=master)](https://travis-ci.org/heroku/heroku-buildpack-go)
 
+# Modifications
+
+This buildpack adds the possibility for using a `Makefile` to build your go application.
+
+Check the `test/fixtures//home/makefile-*` folder to get a glance of how get it working.
+
 # Heroku Buildpack for Go
 
 ![Heroku Buildpack for Go](https://cloud.githubusercontent.com/assets/51578/15877053/53506724-2cdf-11e6-878c-e2ef60ba741f.png)
