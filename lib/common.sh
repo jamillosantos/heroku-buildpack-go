@@ -184,6 +184,7 @@ determineTool() {
         warnGoVersionOverride
     elif [ -f "${Makefile}" ]; then
         TOOL="makefile"
+        setGoVersionFromEnvironment
     elif [ -f "${vendorJSON}" ]; then
         step "Checking vendor/vendor.json file."
         if ! jq -r . < "${vendorJSON}" > /dev/null; then

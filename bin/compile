@@ -3,20 +3,14 @@
 
 set -eo pipefail
 
-echo 1
-
 mkdir -p "$1" "$2"
 build=$(cd "$1/" && pwd)
 cache=$(cd "$2/" && pwd)
 env_dir="${3}"
 
-echo 2
-
 buildpack=$(cd "$(dirname $0)/.." && pwd)
 source "${buildpack}/lib/common.sh"
 ensureInPath "jq-linux64" "${cache}/.jq/bin"
-
-echo 3
 
 DefaultGoVersion="$(<${DataJSON} jq -r '.Go.DefaultVersion')"
 GlideVersion="$(<${DataJSON} jq -r '.Glide.DefaultVersion')"
@@ -26,8 +20,6 @@ PkgErrorsVersion="$(<${DataJSON} jq -r '.PkgErrors.DefaultVersion')"
 MercurialVersion="$(<${DataJSON} jq -r '.HG.DefaultVersion')"
 MattesMigrateVersion="$(<${DataJSON} jq -r '.MattesMigrate.DefaultVersion')"
 # BazaarVersion="2.7.0"
-
-echo 4
 
 # For specified versions of Go we need to keep concurrency.sh
 needConcurrency() {
@@ -329,12 +321,8 @@ setupGOPATH() {
     echo "src=${src}"
 }
 
-echo 5
-
 loadEnvDir "${env_dir}"
 determineTool
-
-echo 6
 
 ver=$(expandVer $ver)
 
@@ -345,15 +333,9 @@ if [ -e "${build}/bin" -a ! -d "${build}/bin" ]; then
     exit 1
 fi
 
-echo 7
-
 reportVer "${ver}"
 
-echo 8
-
 ensureGo "${ver}"
-
-echo 9
 
 mkdir -p "${build}/bin"
 
@@ -370,8 +352,6 @@ if [ -n "${GO_LINKER_SYMBOL}" -a -n "${GO_LINKER_VALUE}" ]; then
     esac
     FLAGS=(${FLAGS[@]} -ldflags "-X ${xval}")
 fi
-
-echo 10
 
 export GOPATH
 
@@ -489,9 +469,9 @@ case "${TOOL}" in
         make install
 
         step "Post Compile Cleanup"
-        for f in bin/*-heroku; do
-            mv "$f" "${f/-heroku}"
-        done
+        # for f in bin/*-heroku; do
+        #     mv "$f" "${f/-heroku}"
+        # done
         rm -rf pkg
     ;;
 esac
