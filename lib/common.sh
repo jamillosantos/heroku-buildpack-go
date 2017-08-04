@@ -182,7 +182,7 @@ determineTool() {
         name=$(<${godepsJSON} jq -r .ImportPath)
         ver=${GOVERSION:-$(<${godepsJSON} jq -r .GoVersion)}
         warnGoVersionOverride
-    elif [ -f "${Makefile" ]; then
+    elif [ -f "${Makefile}" ]; then
         TOOL="makefile"
     elif [ -f "${vendorJSON}" ]; then
         step "Checking vendor/vendor.json file."
