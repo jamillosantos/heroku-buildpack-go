@@ -46,6 +46,7 @@ This buildpack will detect your repository as Go if you are using either:
 - [glide][glide]
 - [GB][gb]
 - [Godep][godep]
+- [Makefile][makefile]
 
 This buildpack adds a `heroku` [build constraint][build-constraint], to enable
 heroku-specific code. See the [App Engine build constraints
@@ -231,6 +232,7 @@ $ make publish # && follow the prompts
 [buildpack]: http://devcenter.heroku.com/articles/buildpacks
 [go-linker]: https://golang.org/cmd/ld/
 [godep]: https://github.com/tools/godep
+[makefile]: https://www.gnu.org/software/make/manual/make.html
 [govendor]: https://github.com/kardianos/govendor
 [gb]: https://getgb.io/
 [quickstart]: http://mmcgrana.github.com/2012/09/getting-started-with-go-on-heroku.html

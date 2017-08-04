@@ -13,6 +13,7 @@ FilesJSON="${buildpack}/files.json"
 godepsJSON="${build}/Godeps/Godeps.json"
 vendorJSON="${build}/vendor/vendor.json"
 glideYAML="${build}/glide.yaml"
+Makefile="${build}/Makefile"
 
 steptxt="----->"
 YELLOW='\033[1;33m'
@@ -181,8 +182,9 @@ determineTool() {
         name=$(<${godepsJSON} jq -r .ImportPath)
         ver=${GOVERSION:-$(<${godepsJSON} jq -r .GoVersion)}
         warnGoVersionOverride
+    elif [ -f "${Makefile" ]; then
+        TOOL="makefile"
     elif [ -f "${vendorJSON}" ]; then
-        TOOL="govendor"
         step "Checking vendor/vendor.json file."
         if ! jq -r . < "${vendorJSON}" > /dev/null; then
             err "Bad vendor/vendor.json file"

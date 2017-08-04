@@ -322,7 +322,9 @@ setupGOPATH() {
 }
 
 loadEnvDir "${env_dir}"
-determineTool
+if [ -z "$TOOL" ]; then
+    determineTool
+fi
 
 ver=$(expandVer $ver)
 
@@ -454,6 +456,19 @@ case "${TOOL}" in
         cd $build
         step "Running: gb build ${FLAGS[@]}"
         gb build "${FLAGS[@]}" 2>&1
+
+        step "Post Compile Cleanup"
+        for f in bin/*-heroku; do
+            mv "$f" "${f/-heroku}"
+        done
+        rm -rf pkg
+    ;;
+    makefile)
+        cd $build
+        step "Running: make get"
+        make get
+        step "Running: make install"
+        make install
 
         step "Post Compile Cleanup"
         for f in bin/*-heroku; do
